@@ -12,15 +12,12 @@ import java.sql.SQLException;
 
 public class ConnexionBase {
 
-  private static final String NOM_BASE = "Chat"; /* Nom de la base de données */
-  private static presentation.FrmMain frmMain;
-
   private static Connection con = null; /* La connexion avec la base */
 
   /* Établit la connexion et affecte con. */
   public static void connect () {
     try {
-        con = Outils.connect(NOM_BASE,frmMain.ADDRESS,frmMain.PORT);
+        con = Outils.connect("Chat","192.168.1.205",3306);
     }
     catch (SQLException e){
         System.out.println("ConnexionBase: " + e.getMessage()); e.printStackTrace();

@@ -115,7 +115,7 @@ public class FrmLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_TfLoginTextValueChanged
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        if (frmMain.owner.getId()==-1) {
+        if (!frmMain.ownerExist()) {
             ConnexionBase.close();
             System.exit(0);
         }
@@ -124,7 +124,7 @@ public class FrmLogin extends javax.swing.JFrame {
 
     private void BtnConnecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConnecterActionPerformed
         if (UserDao.logUser(TfLogin.getText(),TfPassword.getText())!=null) {
-            frmMain.owner = UserDao.logUser(TfLogin.getText(),TfPassword.getText());
+            frmMain.setOwner(UserDao.logUser(TfLogin.getText(),TfPassword.getText()));
             frmMain.actualiserListeAmis();
             this.dispose();
             

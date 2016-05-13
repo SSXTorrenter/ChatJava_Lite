@@ -13,10 +13,7 @@ import metier.ListeUserFriends;
 
 public class FrmMain extends javax.swing.JFrame {
 
-    public User owner = new User(-1,null);
-    public static String ADDRESS;
-    public static int PORT;
-    public static boolean CONNECTION_ESTABLISHED = false;
+    private User owner = new User(-1,null);
     ListeUserFriends lstF;
     /**
      * Creates new form FrmFriends
@@ -147,23 +144,11 @@ public class FrmMain extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    public static void setServer(String address, int port){
-        ADDRESS = address;
-        PORT = port;
-    }
-    
-    public static void setConnectionStat(boolean conEstab){
-        CONNECTION_ESTABLISHED = conEstab;
-    }
     
     
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        if (owner.getId()==-1 && CONNECTION_ESTABLISHED) {
+        if (owner.getId()==-1) {
             FrmLogin.getInstance(this).setVisible(true);
-        }else if(CONNECTION_ESTABLISHED == false){
-            FrmLoading.getInstance(this).setVisible(true);
-            FrmLoading.getInstance(this).tryConnection(0);
         }
     }//GEN-LAST:event_formWindowGainedFocus
 
@@ -212,6 +197,17 @@ public class FrmMain extends javax.swing.JFrame {
         for (int i = 0; i < lstF.size(); i++) {
             LstAmis.add(lstF.get(i).getLogin());
         }
+    }
+    
+    public void setOwner(User owner){
+        this.owner = owner;
+    }
+    
+    public boolean ownerExist(){
+        if(this.owner.getId()!=-1){
+            return true;
+        }
+        return false;
     }
 
     
