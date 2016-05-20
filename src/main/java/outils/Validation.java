@@ -13,18 +13,6 @@ import java.net.SocketAddress;
 import java.net.UnknownHostException;
 
 public class Validation {
-
-  /* Retourne true ssi le String str est un int valide */
-  public static boolean isIntValid (String str) {
-    try {Integer.parseInt(str);} catch (NumberFormatException e) {return false;}
-    return true;
-  } // isIntValid
-
-  /* Retourne true ssi le String str est un double valide */
-  public static boolean isDoubleValid (String str) {
-    try {Double.parseDouble(str);} catch (NumberFormatException e) {return false;}
-    return true;
-  } // isDoubleValid
   
   public static boolean pingHost(String host, int port) {
     try {

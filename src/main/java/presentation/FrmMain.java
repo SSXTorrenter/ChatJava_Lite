@@ -7,7 +7,6 @@ package presentation;
 import base.ConnexionBase;
 import base.UserDao;
 import domaine.User;
-import javax.swing.JOptionPane;
 import metier.ListeUserFriends;
 
 
@@ -37,8 +36,6 @@ public class FrmMain extends javax.swing.JFrame {
         LstAmis = new java.awt.List();
         BtnSuprimerAmi = new java.awt.Button();
         BtnChatterAmi = new java.awt.Button();
-        BtnDeconnecter = new java.awt.Button();
-        BtnAjoutAmi = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chat Java");
@@ -84,21 +81,6 @@ public class FrmMain extends javax.swing.JFrame {
             }
         });
 
-        BtnDeconnecter.setEnabled(false);
-        BtnDeconnecter.setLabel("Se déconnecter");
-        BtnDeconnecter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnDeconnecterActionPerformed(evt);
-            }
-        });
-
-        BtnAjoutAmi.setLabel("Ajouter un ami");
-        BtnAjoutAmi.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnAjoutAmiActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -108,16 +90,12 @@ public class FrmMain extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnDeconnecter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnAjoutAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addComponent(lblAmis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(lblBienvenue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(BtnSuprimerAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
                         .addComponent(BtnChatterAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
@@ -135,10 +113,6 @@ public class FrmMain extends javax.swing.JFrame {
                         .addComponent(LstAmis, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(BtnSuprimerAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BtnDeconnecter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnAjoutAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -179,17 +153,6 @@ public class FrmMain extends javax.swing.JFrame {
         actualiserListeAmis();
     }//GEN-LAST:event_BtnSuprimerAmiActionPerformed
 
-    private void BtnDeconnecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnDeconnecterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BtnDeconnecterActionPerformed
-
-    private void BtnAjoutAmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAjoutAmiActionPerformed
-        String ami = JOptionPane.showInputDialog("Chercher un ami :");
-        if (ami != "") {
-            
-        }
-    }//GEN-LAST:event_BtnAjoutAmiActionPerformed
-
     public void actualiserListeAmis(){
         LstAmis.removeAll();
         lblBienvenue.setText("Bienvenue " + owner.getLogin());
@@ -212,9 +175,7 @@ public class FrmMain extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button BtnAjoutAmi;
     private java.awt.Button BtnChatterAmi;
-    private java.awt.Button BtnDeconnecter;
     private java.awt.Button BtnSuprimerAmi;
     private java.awt.List LstAmis;
     private java.awt.Label lblAmis;

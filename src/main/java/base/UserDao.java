@@ -38,7 +38,8 @@ public class UserDao {
         }
     }
     
-    public static void invitUser(String userLogin, int idO){
+    //Not used for at this time
+    /*public static void invitUser(String userLogin, int idO){
         try {
           Connection con = ConnexionBase.get();
           PreparedStatement preparedStmt = con.prepareStatement("INSERT INTO Friendship(idUser1, idUser2) VALUES (?,(SELECT idUser FROM Users WHERE UPPER(login)=UPPER(\"?\")))");
@@ -49,7 +50,7 @@ public class UserDao {
           System.err.println("Erreur invitUser in UserDao : " + e.getMessage());
           throw new RuntimeException(e);
         } 
-    }
+    }*/
     
     public static ArrayList getListeUser (int id) {
         ArrayList al = new ArrayList();
