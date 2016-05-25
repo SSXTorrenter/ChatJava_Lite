@@ -27,14 +27,14 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="LstChat" max="32767" attributes="0"/>
+                  <Component id="lstChat" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="TfMessage" min="-2" pref="284" max="-2" attributes="0"/>
+                      <Component id="tfMessage" min="-2" pref="284" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="BtnEnvoyer" pref="86" max="32767" attributes="0"/>
+                      <Component id="btnEnvoyer" pref="86" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
-                      <Component id="LblFriendLogin" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblFriendLogin" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -46,13 +46,13 @@
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="LblFriendLogin" min="-2" max="-2" attributes="0"/>
+              <Component id="lblFriendLogin" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="LstChat" min="-2" pref="203" max="-2" attributes="0"/>
+              <Component id="lstChat" min="-2" pref="203" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="BtnEnvoyer" min="-2" max="-2" attributes="0"/>
-                  <Component id="TfMessage" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnEnvoyer" min="-2" max="-2" attributes="0"/>
+                  <Component id="tfMessage" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
@@ -60,22 +60,22 @@
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="java.awt.Button" name="BtnEnvoyer">
+    <Component class="java.awt.Button" name="btnEnvoyer">
       <Properties>
         <Property name="label" type="java.lang.String" value="Envoyer"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnEnvoyerActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnEnvoyerActionPerformed"/>
       </Events>
     </Component>
-    <Component class="java.awt.Label" name="LblFriendLogin">
+    <Component class="java.awt.Label" name="lblFriendLogin">
       <Properties>
         <Property name="text" type="java.lang.String" value="label1"/>
       </Properties>
     </Component>
-    <Component class="java.awt.List" name="LstChat">
+    <Component class="java.awt.List" name="lstChat">
     </Component>
-    <Component class="java.awt.TextField" name="TfMessage">
+    <Component class="java.awt.TextField" name="tfMessage">
     </Component>
   </SubComponents>
 </Form>

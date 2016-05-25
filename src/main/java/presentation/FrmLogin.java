@@ -7,12 +7,14 @@ package presentation;
 import base.ConnexionBase;
 import base.UserDao;
 import javax.swing.JOptionPane;
+import org.apache.log4j.Logger;
 
 
 public class FrmLogin extends javax.swing.JFrame {
 
     private static FrmLogin uniqueInstance = null;
     private FrmMain frmMain; 
+    private static Logger log = Logger.getLogger(FrmLogin.class.getName());
     
     /**
      * Creates new form FrmLogin
@@ -30,45 +32,41 @@ public class FrmLogin extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
-        TfLogin = new java.awt.TextField();
+        tfLogin = new java.awt.TextField();
         label1 = new java.awt.Label();
-        BtnConnecter = new java.awt.Button();
-        TfPassword = new java.awt.TextField();
+        btnConnecter = new java.awt.Button();
+        tfPassword = new java.awt.TextField();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, this, org.jdesktop.beansbinding.ELProperty.create("${defaultCloseOperation}"), this, org.jdesktop.beansbinding.BeanProperty.create("defaultCloseOperation"));
-        bindingGroup.addBinding(binding);
-
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 formWindowClosing(evt);
             }
         });
 
-        TfLogin.addTextListener(new java.awt.event.TextListener() {
+        tfLogin.addTextListener(new java.awt.event.TextListener() {
             public void textValueChanged(java.awt.event.TextEvent evt) {
-                TfLoginTextValueChanged(evt);
+                tfLoginTextValueChanged(evt);
             }
         });
 
         label1.setText("Connexion");
 
-        BtnConnecter.setActionCommand("Connecter");
-        BtnConnecter.setEnabled(false);
-        BtnConnecter.setLabel("Connecter");
-        BtnConnecter.addActionListener(new java.awt.event.ActionListener() {
+        btnConnecter.setActionCommand("Connecter");
+        btnConnecter.setEnabled(false);
+        btnConnecter.setLabel("Connecter");
+        btnConnecter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnConnecterActionPerformed(evt);
+                btnConnecterActionPerformed(evt);
             }
         });
 
-        TfPassword.setEchoChar('*');
-        TfPassword.addTextListener(new java.awt.event.TextListener() {
+        tfPassword.setEchoChar('*');
+        tfPassword.addTextListener(new java.awt.event.TextListener() {
             public void textValueChanged(java.awt.event.TextEvent evt) {
-                TfPasswordTextValueChanged(evt);
+                tfPasswordTextValueChanged(evt);
             }
         });
 
@@ -82,13 +80,13 @@ public class FrmLogin extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BtnConnecter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TfPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(btnConnecter, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tfPassword, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -97,22 +95,20 @@ public class FrmLogin extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(label1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BtnConnecter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnConnecter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        bindingGroup.bind();
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void TfLoginTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_TfLoginTextValueChanged
+    private void tfLoginTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_tfLoginTextValueChanged
         TfsValide();
-    }//GEN-LAST:event_TfLoginTextValueChanged
+    }//GEN-LAST:event_tfLoginTextValueChanged
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
         if (!frmMain.ownerExist()) {
@@ -122,21 +118,25 @@ public class FrmLogin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_formWindowClosing
 
-    private void BtnConnecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnConnecterActionPerformed
-        if (UserDao.logUser(TfLogin.getText(),TfPassword.getText())!=null) {
-            frmMain.setOwner(UserDao.logUser(TfLogin.getText(),TfPassword.getText()));
-            frmMain.actualiserListeAmis();
-            this.dispose();
-            
-        }else{
-            JOptionPane.showMessageDialog(null,"Login ou mot de passe incorrect.","", JOptionPane.ERROR_MESSAGE); 
+    private void btnConnecterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConnecterActionPerformed
+        try{
+            if (UserDao.logUser(tfLogin.getText(),tfPassword.getText())!=null) {
+                frmMain.setOwner(UserDao.logUser(tfLogin.getText(),tfPassword.getText()));
+                frmMain.actualiserListeAmis();
+                this.dispose();
+
+            }else{
+                JOptionPane.showMessageDialog(null,"Login ou mot de passe incorrect.","", JOptionPane.ERROR_MESSAGE); 
+            }
+        }catch(Exception e){
+            log.info(e);
         }
             
-    }//GEN-LAST:event_BtnConnecterActionPerformed
+    }//GEN-LAST:event_btnConnecterActionPerformed
 
-    private void TfPasswordTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_TfPasswordTextValueChanged
+    private void tfPasswordTextValueChanged(java.awt.event.TextEvent evt) {//GEN-FIRST:event_tfPasswordTextValueChanged
         TfsValide();
-    }//GEN-LAST:event_TfPasswordTextValueChanged
+    }//GEN-LAST:event_tfPasswordTextValueChanged
 
     public static FrmLogin getInstance (FrmMain frmMain) {
         if (uniqueInstance == null) {uniqueInstance = new FrmLogin(); uniqueInstance.frmMain = frmMain;}
@@ -144,18 +144,17 @@ public class FrmLogin extends javax.swing.JFrame {
     }
     
     private void TfsValide(){
-        if (!TfPassword.getText().isEmpty() && !TfLogin.getText().isEmpty()) {
-            BtnConnecter.setEnabled(true);
+        if (!tfPassword.getText().isEmpty() && !tfLogin.getText().isEmpty()) {
+            btnConnecter.setEnabled(true);
         }else{
-            BtnConnecter.setEnabled(false);
+            btnConnecter.setEnabled(false);
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button BtnConnecter;
-    private java.awt.TextField TfLogin;
-    private java.awt.TextField TfPassword;
+    private java.awt.Button btnConnecter;
     private java.awt.Label label1;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
+    private java.awt.TextField tfLogin;
+    private java.awt.TextField tfPassword;
     // End of variables declaration//GEN-END:variables
 }

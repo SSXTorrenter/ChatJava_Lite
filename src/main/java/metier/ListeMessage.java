@@ -7,8 +7,9 @@ package metier;
 
 import domaine.Message;
 import base.MessageDao;
+import java.sql.SQLException;
 
 
 public class ListeMessage extends ListeObjects<Message>{
-  public ListeMessage (int idO, int idF) {super (MessageDao.getListeMessage(idO,idF));}
+  public ListeMessage (int idO, int idF) throws SQLException {super (MessageDao.getListeMessage(idO,idF));}
 }

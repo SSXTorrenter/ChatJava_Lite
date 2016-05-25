@@ -7,13 +7,16 @@ package presentation;
 import base.ConnexionBase;
 import base.UserDao;
 import domaine.User;
-import metier.ListeUserFriends;
+import java.sql.SQLException;
+import metier.*;
+import org.apache.log4j.Logger;
 
 
 public class FrmMain extends javax.swing.JFrame {
 
-    private User owner = new User(-1,null);
-    ListeUserFriends lstF;
+    private transient User owner = null;
+    private transient ListeObjects<User> lstF;
+    private static Logger log = Logger.getLogger(FrmMain.class.getName());
     /**
      * Creates new form FrmFriends
      */
@@ -33,9 +36,9 @@ public class FrmMain extends javax.swing.JFrame {
 
         lblBienvenue = new java.awt.Label();
         lblAmis = new java.awt.Label();
-        LstAmis = new java.awt.List();
-        BtnSuprimerAmi = new java.awt.Button();
-        BtnChatterAmi = new java.awt.Button();
+        lstAmis = new java.awt.List();
+        btnSuprimerAmi = new java.awt.Button();
+        btnChatterAmi = new java.awt.Button();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Chat Java");
@@ -59,25 +62,25 @@ public class FrmMain extends javax.swing.JFrame {
 
         lblAmis.setText("Amis :");
 
-        LstAmis.addItemListener(new java.awt.event.ItemListener() {
+        lstAmis.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                LstAmisItemStateChanged(evt);
+                lstAmisItemStateChanged(evt);
             }
         });
 
-        BtnSuprimerAmi.setEnabled(false);
-        BtnSuprimerAmi.setLabel("Suprimer");
-        BtnSuprimerAmi.addActionListener(new java.awt.event.ActionListener() {
+        btnSuprimerAmi.setEnabled(false);
+        btnSuprimerAmi.setLabel("Suprimer");
+        btnSuprimerAmi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnSuprimerAmiActionPerformed(evt);
+                btnSuprimerAmiActionPerformed(evt);
             }
         });
 
-        BtnChatterAmi.setEnabled(false);
-        BtnChatterAmi.setLabel("Chatter avec");
-        BtnChatterAmi.addActionListener(new java.awt.event.ActionListener() {
+        btnChatterAmi.setEnabled(false);
+        btnChatterAmi.setLabel("Chatter avec");
+        btnChatterAmi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnChatterAmiActionPerformed(evt);
+                btnChatterAmiActionPerformed(evt);
             }
         });
 
@@ -85,7 +88,7 @@ public class FrmMain extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(LstAmis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(lstAmis, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -94,9 +97,9 @@ public class FrmMain extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(lblBienvenue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(BtnSuprimerAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSuprimerAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 64, Short.MAX_VALUE)
-                        .addComponent(BtnChatterAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnChatterAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -106,13 +109,13 @@ public class FrmMain extends javax.swing.JFrame {
                 .addComponent(lblBienvenue, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BtnChatterAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnChatterAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lblAmis, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LstAmis, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lstAmis, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnSuprimerAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSuprimerAmi, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -121,7 +124,7 @@ public class FrmMain extends javax.swing.JFrame {
     
     
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
-        if (owner.getId()==-1) {
+        if (owner==null) {
             FrmLogin.getInstance(this).setVisible(true);
         }
     }//GEN-LAST:event_formWindowGainedFocus
@@ -131,34 +134,42 @@ public class FrmMain extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_formWindowClosing
 
-    private void LstAmisItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_LstAmisItemStateChanged
-        if (LstAmis.getSelectedIndex()!=-1) {
-            BtnChatterAmi.setEnabled(true);
-            BtnSuprimerAmi.setEnabled(true);
+    private void lstAmisItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_lstAmisItemStateChanged
+        if (lstAmis.getSelectedIndex()!=-1) {
+            btnChatterAmi.setEnabled(true);
+            btnSuprimerAmi.setEnabled(true);
             
         }else{
-            BtnChatterAmi.setEnabled(false);
-            BtnSuprimerAmi.setEnabled(false);
+            btnChatterAmi.setEnabled(false);
+            btnSuprimerAmi.setEnabled(false);
         }
-    }//GEN-LAST:event_LstAmisItemStateChanged
+    }//GEN-LAST:event_lstAmisItemStateChanged
 
-    private void BtnChatterAmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnChatterAmiActionPerformed
-        lstF.setPos(LstAmis.getSelectedIndex());
+    private void btnChatterAmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnChatterAmiActionPerformed
+        lstF.setPos(lstAmis.getSelectedIndex());
         new FrmChat(lstF.getCourant(),owner).setVisible(true);
-    }//GEN-LAST:event_BtnChatterAmiActionPerformed
+    }//GEN-LAST:event_btnChatterAmiActionPerformed
 
-    private void BtnSuprimerAmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSuprimerAmiActionPerformed
-        lstF.setPos(LstAmis.getSelectedIndex());
-        UserDao.deleteFriend(owner.getId(), lstF.getCourant().getId());
-        actualiserListeAmis();
-    }//GEN-LAST:event_BtnSuprimerAmiActionPerformed
+    private void btnSuprimerAmiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuprimerAmiActionPerformed
+        try {
+            lstF.setPos(lstAmis.getSelectedIndex());
+            UserDao.deleteFriend(owner.getId(), lstF.getCourant().getId());
+            actualiserListeAmis();
+        } catch (SQLException e) {
+            log.info(e);
+        }
+    }//GEN-LAST:event_btnSuprimerAmiActionPerformed
 
     public void actualiserListeAmis(){
-        LstAmis.removeAll();
-        lblBienvenue.setText("Bienvenue " + owner.getLogin());
-        lstF = new ListeUserFriends(owner.getId());
-        for (int i = 0; i < lstF.size(); i++) {
-            LstAmis.add(lstF.get(i).getLogin());
+        try {
+            lstAmis.removeAll();
+            lblBienvenue.setText("Bienvenue " + owner.getLogin());
+            lstF = new ListeUserFriends(owner.getId());
+            for (int i = 0; i < lstF.size(); i++) {
+                lstAmis.add(lstF.get(i).getLogin());
+            }
+        } catch (SQLException e) {
+            log.info(e);
         }
     }
     
@@ -167,7 +178,7 @@ public class FrmMain extends javax.swing.JFrame {
     }
     
     public boolean ownerExist(){
-        if(this.owner.getId()!=-1){
+        if(this.owner==null){
             return true;
         }
         return false;
@@ -175,10 +186,10 @@ public class FrmMain extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button BtnChatterAmi;
-    private java.awt.Button BtnSuprimerAmi;
-    private java.awt.List LstAmis;
+    private java.awt.Button btnChatterAmi;
+    private java.awt.Button btnSuprimerAmi;
     private java.awt.Label lblAmis;
     private java.awt.Label lblBienvenue;
+    private java.awt.List lstAmis;
     // End of variables declaration//GEN-END:variables
 }

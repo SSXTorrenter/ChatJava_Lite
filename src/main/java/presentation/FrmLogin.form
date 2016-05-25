@@ -2,11 +2,9 @@
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
+    <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="resizable" type="boolean" value="false"/>
   </Properties>
-  <BindingProperties>
-    <BindingProperty name="defaultCloseOperation" source="Form" sourcePath="${defaultCloseOperation}" target="Form" targetPath="defaultCloseOperation" updateStrategy="0" immediately="false"/>
-  </BindingProperties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
@@ -35,15 +33,15 @@
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="label1" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="TfLogin" min="-2" pref="116" max="-2" attributes="0"/>
+                          <Component id="tfLogin" min="-2" pref="116" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="BtnConnecter" alignment="1" min="-2" max="-2" attributes="0"/>
-                          <Component id="TfPassword" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
+                          <Component id="btnConnecter" alignment="1" min="-2" max="-2" attributes="0"/>
+                          <Component id="tfPassword" alignment="1" min="-2" pref="116" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -57,20 +55,20 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="label1" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="TfLogin" min="-2" max="-2" attributes="0"/>
+              <Component id="tfLogin" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="TfPassword" min="-2" max="-2" attributes="0"/>
+              <Component id="tfPassword" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="BtnConnecter" min="-2" max="-2" attributes="0"/>
+              <Component id="btnConnecter" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
   </Layout>
   <SubComponents>
-    <Component class="java.awt.TextField" name="TfLogin">
+    <Component class="java.awt.TextField" name="tfLogin">
       <Events>
-        <EventHandler event="textValueChanged" listener="java.awt.event.TextListener" parameters="java.awt.event.TextEvent" handler="TfLoginTextValueChanged"/>
+        <EventHandler event="textValueChanged" listener="java.awt.event.TextListener" parameters="java.awt.event.TextEvent" handler="tfLoginTextValueChanged"/>
       </Events>
     </Component>
     <Component class="java.awt.Label" name="label1">
@@ -78,24 +76,24 @@
         <Property name="text" type="java.lang.String" value="Connexion"/>
       </Properties>
     </Component>
-    <Component class="java.awt.Button" name="BtnConnecter">
+    <Component class="java.awt.Button" name="btnConnecter">
       <Properties>
         <Property name="actionCommand" type="java.lang.String" value="Connecter"/>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="label" type="java.lang.String" value="Connecter"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnConnecterActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnConnecterActionPerformed"/>
       </Events>
     </Component>
-    <Component class="java.awt.TextField" name="TfPassword">
+    <Component class="java.awt.TextField" name="tfPassword">
       <Properties>
         <Property name="echoChar" type="char" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
           <Connection code="&apos;*&apos;" type="code"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="textValueChanged" listener="java.awt.event.TextListener" parameters="java.awt.event.TextEvent" handler="TfPasswordTextValueChanged"/>
+        <EventHandler event="textValueChanged" listener="java.awt.event.TextListener" parameters="java.awt.event.TextEvent" handler="tfPasswordTextValueChanged"/>
       </Events>
     </Component>
   </SubComponents>

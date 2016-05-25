@@ -6,18 +6,21 @@
 package presentation;
 
 import base.MessageDao;
-import domaine.User;
-import java.awt.event.KeyEvent;
+import domaine.*;
+import java.sql.SQLException;
 import java.util.Timer;
 import java.util.TimerTask;
 import metier.ListeMessage;
+import metier.ListeObjects;
+import org.apache.log4j.Logger;
 
 
 public class FrmChat extends javax.swing.JFrame {
 
-    User friend = new User(-1,null);
-    User owner = new User(-1,null);
-    ListeMessage lstM;
+    private transient User friend = null;
+    private transient User owner = null;
+    private transient ListeObjects<Message> lstM;
+    private static Logger log = Logger.getLogger(FrmChat.class.getName());
     
     /**
      * Creates new form FrmChat
@@ -27,7 +30,7 @@ public class FrmChat extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         this.friend = friend;
         this.owner = owner;
-        LblFriendLogin.setText(friend.getLogin());
+        lblFriendLogin.setText(friend.getLogin());
         
         TimerTask task = new TimerTask(){
             @Override
@@ -49,22 +52,22 @@ public class FrmChat extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        BtnEnvoyer = new java.awt.Button();
-        LblFriendLogin = new java.awt.Label();
-        LstChat = new java.awt.List();
-        TfMessage = new java.awt.TextField();
+        btnEnvoyer = new java.awt.Button();
+        lblFriendLogin = new java.awt.Label();
+        lstChat = new java.awt.List();
+        tfMessage = new java.awt.TextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setResizable(false);
 
-        BtnEnvoyer.setLabel("Envoyer");
-        BtnEnvoyer.addActionListener(new java.awt.event.ActionListener() {
+        btnEnvoyer.setLabel("Envoyer");
+        btnEnvoyer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnEnvoyerActionPerformed(evt);
+                btnEnvoyerActionPerformed(evt);
             }
         });
 
-        LblFriendLogin.setText("label1");
+        lblFriendLogin.setText("label1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,13 +76,13 @@ public class FrmChat extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(LstChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lstChat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(TfMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfMessage, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(BtnEnvoyer, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
+                        .addComponent(btnEnvoyer, javax.swing.GroupLayout.DEFAULT_SIZE, 86, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(LblFriendLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(lblFriendLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -87,41 +90,49 @@ public class FrmChat extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(LblFriendLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblFriendLogin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(LstChat, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lstChat, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BtnEnvoyer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(TfMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnEnvoyer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(tfMessage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BtnEnvoyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEnvoyerActionPerformed
+    private void btnEnvoyerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEnvoyerActionPerformed
         sendMsg();
-    }//GEN-LAST:event_BtnEnvoyerActionPerformed
+    }//GEN-LAST:event_btnEnvoyerActionPerformed
 
     private void sendMsg (){
-        MessageDao.sendMessage(owner.getId(), friend.getId(), TfMessage.getText());
-        TfMessage.setText("");
-        actualiserChat();
+        try {
+            MessageDao.sendMessage(owner.getId(), friend.getId(), tfMessage.getText());
+            tfMessage.setText("");
+            actualiserChat();
+        } catch (SQLException e) {
+            log.info(e);
+        }
     }
     
     private void actualiserChat(){
-        lstM = new ListeMessage(owner.getId(),friend.getId());
-        for (int i = LstChat.getItemCount(); i < lstM.size(); i++) {
-            LstChat.add(lstM.get(i).toString());
-            LstChat.makeVisible(i);
+        try {
+            lstM = new ListeMessage(owner.getId(),friend.getId());
+            for (int i = lstChat.getItemCount(); i < lstM.size(); i++) {
+                lstChat.add(lstM.get(i).toString());
+                lstChat.makeVisible(i);
+            }
+        } catch (SQLException e) {
+            log.info(e);
         }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private java.awt.Button BtnEnvoyer;
-    private java.awt.Label LblFriendLogin;
-    private java.awt.List LstChat;
-    private java.awt.TextField TfMessage;
+    private java.awt.Button btnEnvoyer;
+    private java.awt.Label lblFriendLogin;
+    private java.awt.List lstChat;
+    private java.awt.TextField tfMessage;
     // End of variables declaration//GEN-END:variables
 }

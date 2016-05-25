@@ -32,7 +32,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="LstAmis" max="32767" attributes="0"/>
+          <Component id="lstAmis" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -42,9 +42,9 @@
                   </Group>
                   <Component id="lblBienvenue" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="BtnSuprimerAmi" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSuprimerAmi" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="64" max="32767" attributes="0"/>
-                      <Component id="BtnChatterAmi" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnChatterAmi" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -58,13 +58,13 @@
               <Component id="lblBienvenue" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="1" attributes="0">
-                  <Component id="BtnChatterAmi" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnChatterAmi" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="lblAmis" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="LstAmis" min="-2" pref="283" max="-2" attributes="0"/>
+                      <Component id="lstAmis" min="-2" pref="283" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="BtnSuprimerAmi" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnSuprimerAmi" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
@@ -86,27 +86,27 @@
         <Property name="text" type="java.lang.String" value="Amis :"/>
       </Properties>
     </Component>
-    <Component class="java.awt.List" name="LstAmis">
+    <Component class="java.awt.List" name="lstAmis">
       <Events>
-        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="LstAmisItemStateChanged"/>
+        <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="lstAmisItemStateChanged"/>
       </Events>
     </Component>
-    <Component class="java.awt.Button" name="BtnSuprimerAmi">
+    <Component class="java.awt.Button" name="btnSuprimerAmi">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="label" type="java.lang.String" value="Suprimer"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnSuprimerAmiActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSuprimerAmiActionPerformed"/>
       </Events>
     </Component>
-    <Component class="java.awt.Button" name="BtnChatterAmi">
+    <Component class="java.awt.Button" name="btnChatterAmi">
       <Properties>
         <Property name="enabled" type="boolean" value="false"/>
         <Property name="label" type="java.lang.String" value="Chatter avec"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnChatterAmiActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnChatterAmiActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
