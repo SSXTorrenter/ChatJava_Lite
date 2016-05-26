@@ -1,3 +1,3 @@
-Lite version of ChatJava
-Mini chat with connection to a MySQL database in java
-# ChatJava_Lite
+#ChatJavaLite
+###Description :
+Mini chat in java connected to a MySQL database server
