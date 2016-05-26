@@ -156,7 +156,7 @@ public class FrmMain extends javax.swing.JFrame {
             UserDao.deleteFriend(owner.getId(), lstF.getCourant().getId());
             actualiserListeAmis();
         } catch (SQLException e) {
-            log.info(e);
+            log.error(e);
         }
     }//GEN-LAST:event_btnSuprimerAmiActionPerformed
 
@@ -169,7 +169,7 @@ public class FrmMain extends javax.swing.JFrame {
                 lstAmis.add(lstF.get(i).getLogin());
             }
         } catch (SQLException e) {
-            log.info(e);
+            log.error(e);
         }
     }
     
@@ -178,7 +178,7 @@ public class FrmMain extends javax.swing.JFrame {
     }
     
     public boolean ownerExist(){
-        if(this.owner==null){
+        if(this.owner!=null){
             return true;
         }
         return false;
