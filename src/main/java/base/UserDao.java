@@ -7,12 +7,12 @@ package base;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import domaine.User;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.*;
 
@@ -31,16 +31,15 @@ public class UserDao {
         try {
 
             try (Connection con = ConnexionBase.get();
-                 PreparedStatement preparedStmt = con.prepareStatement("SELECT idUser,login,password,lastSeen FROM Users WHERE login=\"?\"");) {
-                 preparedStmt.setString(1, login);
-                ResultSet rs = preparedStmt.executeQuery();
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery("SELECT idUser,login,password,lastSeen FROM Users WHERE login=\"" + login + "\"");) {
                 rs.next();
                 if (rs.getString("password").equals(DigestUtils.sha1Hex(password))) {
                     return new User(rs.getInt("idUser"), rs.getString("login"));
                 }
             }
         } catch (Exception e) {
-            log.info(e);
+            System.err.println(e);
         }
         return null;
     }
@@ -63,7 +62,7 @@ public class UserDao {
                 }
             }
         } catch (Exception e) {
-            log.info(e);
+            log.error(e);
         }
         return al;
     }
@@ -71,7 +70,7 @@ public class UserDao {
     public static void deleteFriend(int idO, int idF) throws SQLException {
         try {
             try (Connection con = ConnexionBase.get();
-                 PreparedStatement preparedStmt = con.prepareStatement("DELETE FROM Friendship WHERE \n"
+                    PreparedStatement preparedStmt = con.prepareStatement("DELETE FROM Friendship WHERE \n"
                             + "idUser1 = ? AND idUser2 = ?\n"
                             + "OR idUser1 = ? AND idUser2 = ?");) {
                 preparedStmt.setInt(1, idO);
@@ -82,7 +81,7 @@ public class UserDao {
                 preparedStmt.close();
             }
         } catch (Exception e) {
-            log.info(e);
+            log.error(e);
         }
     }
 }
