@@ -46,7 +46,7 @@ public class MessageDao {
                 }
             }
         } catch (Exception e) {
-            log.info(e);
+            log.error(e);
         }
         return al;
     }
@@ -61,7 +61,7 @@ public class MessageDao {
                 preparedStmt.execute();
             }
         } catch (Exception e) {
-            log.info(e);
+            log.error(e);
         }
     }
 }
