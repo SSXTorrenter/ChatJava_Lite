@@ -1,0 +1,16 @@
+.DS_Store
+src/.DS_Store
+src/test/.DS_Store
+src/main/.DS_Store
+src/main/java/.DS_Store
+src/main/java/base/.DS_Store
+src/main/java/domaine/.DS_Store
+src/main/java/metier/.DS_Store
+src/main/java/outils/.DS_Store
+src/main/java/presentation/.DS_Store
+target/
+src/test/
+dependency-reduced-pom.xml
+nbactions.xml
+src/main/java/ressources
+
