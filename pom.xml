@@ -3,7 +3,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>src.hesge.thomasRodriguez</groupId>
-    <artifactId>ChatJava_Lite</artifactId>
+    <artifactId>ChatJavaLite</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <build>
         <plugins>
@@ -57,6 +57,11 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>3.0.1</version>
+            </plugin>
         </plugins>
     </build>
     <dependencies>
@@ -86,6 +91,11 @@
             <artifactId>mockito-all</artifactId>
             <version>1.9.5</version>
         </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
@@ -94,5 +104,14 @@
             <url>http://jcenter.bintray.com</url>
         </repository>
     </repositories>
-    <name>ChatJava_Lite</name>
+    <name>ChatJavaLite</name>
+    <properties>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <sonar.coverage.exclusions>
+            **/FrmChat.java,
+            **/FrmLogin.java,
+            **/Main.java
+        </sonar.coverage.exclusions>
+    </properties>
 </project>
